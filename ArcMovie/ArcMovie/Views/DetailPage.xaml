@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"             
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:c="clr-namespace:ArcMovie.Converters;assembly=ArcMovie"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"    
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="ArcMovie.Views.DetailPage"
+             Title="{Binding Title}">
+    <ScrollView>
+      <StackLayout Padding="10" Margin="10" Orientation="Vertical">
+            <ffimageloading:CachedImage               
+                Source="{Binding Movie.BackdropPath, StringFormat='https://image.tmdb.org/t/p/w640/{0}'}"
+                LoadingPlaceholder="loading2.png"/>
+            <Label Text="Title" FontSize="Medium" FontAttributes="Bold"/>
+            <Label AutomationId="LabelTitle" Text="{Binding Movie.Title}" FontSize="Small"/>
+            <Label Text="Overview" FontSize="Medium" FontAttributes="Bold"/>
+            <Label Text="{Binding Movie.Overview}" FontSize="Small"/>
+            <Label Text="Release Date" FontSize="Medium" FontAttributes="Bold"/>
+            <Label Text="{Binding Movie.ReleaseDate, StringFormat='{0:D}'}" FontSize="Small"/>
+            <Label Text="Genres" FontSize="Medium" FontAttributes="Bold"/>
+            <ListView
+                x:Name="GenresListView"                        
+                ItemsSource="{Binding Movie.Genres}"
+                CachingStrategy="RecycleElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="10">
+                                <Label 
+                                    Text="{Binding Name}"
+                                    LineBreakMode="NoWrap"
+                                    FontSize="Small" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ScrollView>    
+</ContentPage>
